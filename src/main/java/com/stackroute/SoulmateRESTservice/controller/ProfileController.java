@@ -53,5 +53,11 @@ public class ProfileController {
         return ResponseEntity.ok().body(this.profileService.updateProfile(profile));
     }
 
+    //Search the profile  Based on name//
+    @GetMapping("/profiles/name")
+    public ResponseEntity<List<Profile>> profileByName(@RequestParam(value = "name") String name) throws ProfileNotFoundException, Exception {
+        return new ResponseEntity<List<Profile>>((List<Profile>) profileService.findProfileByName(name), HttpStatus.OK);
+
+    }
 
 }

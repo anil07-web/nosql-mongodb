@@ -29,19 +29,20 @@ public class ProfileServiceImp implements ProfileService {
     }
 
     @Override
-    public List<Profile> getALLProfiles() throws ProfileNotFoundException{
-    List<Profile> userDB= (List<Profile>) this.profileRepository.findAll();
-        if(userDB.isEmpty()){
-        throw new ProfileNotFoundException();
-    }
+    public List<Profile> getALLProfiles() throws ProfileNotFoundException {
+        List<Profile> userDB = (List<Profile>) this.profileRepository.findAll();
+        if (userDB.isEmpty()) {
+            throw new ProfileNotFoundException();
+        }
         return (List<Profile>) profileRepository.findAll();
-}
+    }
+
     @Override
     public void delete(int id) throws ProfileNotFoundException {
-        Optional<Profile> userDB=this.profileRepository.findById(id);
-        if(userDB.isPresent()){
+        Optional<Profile> userDB = this.profileRepository.findById(id);
+        if (userDB.isPresent()) {
             this.profileRepository.delete(userDB.get());
-        }else{
+        } else {
             throw new ProfileNotFoundException();
         }
     }
@@ -59,8 +60,8 @@ public class ProfileServiceImp implements ProfileService {
 
     @Override
     public Profile updateProfile(Profile user) throws ProfileNotFoundException {
-        Optional<Profile> userDB =this.profileRepository.findById(user.getId());
-        if(userDB.isPresent()) {
+        Optional<Profile> userDB = this.profileRepository.findById(user.getId());
+        if (userDB.isPresent()) {
             Profile userUpdate = userDB.get();
             userUpdate.setId(user.getId());
             userUpdate.setName(user.getName());
@@ -68,10 +69,20 @@ public class ProfileServiceImp implements ProfileService {
             userUpdate.setAge(user.getAge());
             profileRepository.save(userUpdate);
             return userUpdate;
-        }else{
+        } else {
             throw new ProfileNotFoundException();
         }
 
     }
+
+    @Override
+    public List<Profile> findProfileByName(String name) throws ProfileNotFoundException {
+        List<Profile> userDb = this.profileRepository.findProfileByName(name);
+        if (userDb.isEmpty()) {
+            throw new ProfileNotFoundException();
+        }
+        return profileRepository.findProfileByName(name);
+    }
+
 
 }

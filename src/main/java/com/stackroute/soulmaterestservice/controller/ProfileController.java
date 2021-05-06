@@ -4,6 +4,7 @@ import com.stackroute.SoulmateRESTservice.exception.ProfileAlreadyExistsExceptio
 import com.stackroute.SoulmateRESTservice.exception.ProfileNotFoundException;
 import com.stackroute.SoulmateRESTservice.model.Profile;
 import com.stackroute.SoulmateRESTservice.service.ProfileService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("api/v1")
 public class ProfileController {
@@ -25,13 +27,15 @@ public class ProfileController {
     @PostMapping("/profile")
     public ResponseEntity<Profile> saveProfile(@RequestBody Profile profile) throws ProfileAlreadyExistsException, Exception {
         Profile savedprofile = profileService.saveProfile(profile);
+        log.info("This is info message");
         return new ResponseEntity<>(savedprofile, HttpStatus.CREATED);
     }
 
     // This method is used for Retriving the saved profiles//
     @GetMapping("/profiles")
-    public ResponseEntity<List<Profile>> getAllProfiles() throws ProfileNotFoundException, Exception {
-        return new ResponseEntity<List<Profile>>((List<Profile>) profileService.getALLProfiles(), HttpStatus.OK);
+    public ResponseEntity<?> getAllProfiles() throws Exception {
+        List<Profile> profileList = profileService.getALLProfiles();
+        return new ResponseEntity<>(profileList, HttpStatus.FOUND);
     }
 
     //Deleting the profile Based on Id//
@@ -60,4 +64,13 @@ public class ProfileController {
 
     }
 
+    @GetMapping("/msg")
+    public String getMessage() {
+        log.info("This is info msg");
+        log.debug("This is debug msg");
+        log.trace("This is trace msg");
+        log.warn("This is warn msg");
+        log.error("This is error msg");
+        return "msg";
+    }
 }

@@ -29,12 +29,8 @@ public class ProfileServiceImp implements ProfileService {
     }
 
     @Override
-    public List<Profile> getALLProfiles() throws ProfileNotFoundException {
-        List<Profile> userDB = (List<Profile>) this.profileRepository.findAll();
-        if (userDB.isEmpty()) {
-            throw new ProfileNotFoundException();
-        }
-        return (List<Profile>) profileRepository.findAll();
+    public List<Profile> getALLProfiles() throws Exception {
+        return profileRepository.findAll();
     }
 
     @Override

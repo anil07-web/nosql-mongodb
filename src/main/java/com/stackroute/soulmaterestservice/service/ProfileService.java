@@ -9,7 +9,7 @@ import java.util.List;
 public interface ProfileService {
     Profile saveProfile(Profile profile) throws ProfileAlreadyExistsException, Exception;
 
-    List<Profile> getALLProfiles() throws ProfileNotFoundException, Exception;
+    List<Profile> getALLProfiles() throws Exception;
 
     void delete(int id) throws ProfileNotFoundException, Exception;
 

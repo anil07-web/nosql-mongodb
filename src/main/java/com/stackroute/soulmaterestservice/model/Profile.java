@@ -6,9 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @NoArgsConstructor
 @AllArgsConstructor
-//@Getter
-//@Setter
-//@ToString
 @Data
 @Document(collection = "users")
 public class Profile {

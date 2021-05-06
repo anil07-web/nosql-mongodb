@@ -43,7 +43,7 @@ class ProfileServiceTest {
     }
 
     @Test
-    public void givenGetAllProfilesThenShowShouldReturnListOfAllProfiles() throws ProfileNotFoundException {
+    public void givenGetAllProfilesThenShowShouldReturnListOfAllProfiles() throws Exception {
         profileRepository.save(profile);
         when(profileRepository.findAll()).thenReturn(profileList);
         List<Profile> profileList = profileService.getALLProfiles();
